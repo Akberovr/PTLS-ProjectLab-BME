@@ -36,23 +36,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception{
 
         http.headers().frameOptions().disable();
-        http.csrf().disable()
-                .authorizeRequests().antMatchers("/authenticated").permitAll()
 
-
-
+        http.csrf().disable().authorizeRequests().antMatchers("/authenticated").permitAll()
+        .anyRequest().authenticated()
         .and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+
+
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//        http.authorizeRequests()
-//                .antMatchers("/api/admin").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.GET, "/api/employees/**").hasAnyRole("ADMIN","USER")
-//                .antMatchers(HttpMethod.POST,"/api/employees/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.PATCH,"/api/employees/**").hasRole("ADMIN")
-//                .antMatchers(HttpMethod.DELETE,"/api/employees/**").hasRole("ADMIN")
-//                .antMatchers("/api").permitAll()
-//                .and().formLogin();
     }
 
     @Override
