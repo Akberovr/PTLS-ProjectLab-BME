@@ -31,17 +31,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(myUserDetailsService);
     }
-
+//
     @Override
     protected void configure(HttpSecurity http) throws Exception{
 
         http.headers().frameOptions().disable();
 
+
+        //lines to control authentication and authorization
+
         http.csrf().disable().authorizeRequests().antMatchers("/authenticated").permitAll()
         .anyRequest().authenticated()
         .and().sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
 
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

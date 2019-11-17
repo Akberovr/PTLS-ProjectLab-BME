@@ -1,11 +1,10 @@
 package com.projectlab.bme.ptl.rest;
 
 
-import com.projectlab.bme.ptl.dao.EmployeeDAO;
+import com.projectlab.bme.ptl.entity.Employee;
 import com.projectlab.bme.ptl.models.AuthenticationRequest;
 import com.projectlab.bme.ptl.models.AuthenticationResponse;
-import com.projectlab.bme.ptl.service.EmployeeService;
-import com.projectlab.bme.ptl.entity.Employee;
+import com.projectlab.bme.ptl.repositories.EmployeeRepository;
 import com.projectlab.bme.ptl.service.MyUserDetailsService;
 import com.projectlab.bme.ptl.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,20 +14,19 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/")
 public class EmployeeRestController {
 
-    private EmployeeService employeeService;
-
 
     @Autowired
-    public EmployeeRestController(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
+    private EmployeeRepository empRepo;
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -60,54 +58,64 @@ public class EmployeeRestController {
 
     @GetMapping("/employees")
     public List<Employee> findAll(){
-        return employeeService.findAll();
+        return empRepo.findAll();
     }
 
 
     //add mapping for GET /employees/{employeeId}
 
     @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId){
+    public Employee getDriver(@PathVariable int employeeId){
 
-        Employee theEmployee = employeeService.findById(employeeId);
+        Optional<Employee> theEmployee = empRepo.findById(employeeId);
 
-        if (theEmployee == null){
+        if (!theEmployee.isPresent()){
             throw new RuntimeException("Employee id not found - "+ employeeId);
         }
 
-        return theEmployee;
+        return theEmployee.get();
 
     }
 
 
-    @PostMapping("/employees/{employeeid}")
-    public Employee addEmployee(@RequestBody Employee theEmployee){
+    @PostMapping("/employees")
+    public ResponseEntity<Employee> addDriver(@RequestBody Employee theEmployee){
+        Employee savedEmployee = empRepo.save(theEmployee);
 
-        theEmployee.setId(0);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{employeeId}").
+                buildAndExpand(savedEmployee.getId()).toUri();
 
-        employeeService.save(theEmployee);
+        return ResponseEntity.created(location).build();
 
-        return theEmployee;
     }
 
-    @PutMapping("/employees")
-    public Employee updateEmployee(@RequestBody Employee theEmployee){
-        employeeService.save(theEmployee);
+    @PutMapping("/employees/{id}")
+    public ResponseEntity<Employee> updateDriver(@RequestBody Employee theEmployee, @PathVariable int id){
 
-        return theEmployee;
+        Optional<Employee> employeeOptional = empRepo.findById(id);
+
+        if (!employeeOptional.isPresent())
+            return ResponseEntity.notFound().build();
+
+        theEmployee.setId(id);
+
+        empRepo.save(theEmployee);
+
+        return ResponseEntity.noContent().build();
+
     }
 
 
     @DeleteMapping("/employee/{employeeId}")
-    public String deleteEmployee(@PathVariable int employeeId){
+    public String deleteDriver(@PathVariable int employeeId){
 
-        Employee tempEmployee = employeeService.findById(employeeId);
+        Employee tempEmployee = empRepo.findById(employeeId).orElse(null);
 
         if (tempEmployee == null){
             throw new RuntimeException("Employee id not found - "+ employeeId);
         }
 
-        employeeService.deleteById(employeeId);
+        empRepo.deleteById(employeeId);
 
         return "Deleted Employee id- "+ employeeId;
     }
