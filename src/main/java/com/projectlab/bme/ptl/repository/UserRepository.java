@@ -1,7 +1,7 @@
-package com.projectlab.bme.ptl.repositories;
+package com.projectlab.bme.ptl.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.projectlab.bme.ptl.entity.User;
+import com.projectlab.bme.ptl.domain.User;
 
 import java.util.Optional;
 

@@ -1,7 +1,8 @@
-package com.projectlab.bme.ptl.entity;
+package com.projectlab.bme.ptl.domain;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name="employee")
@@ -12,6 +13,7 @@ public class Employee {
 
     private @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) int id;
 
+    @NotBlank(message = "Field cannot be blank")
     private String first_name;
 
     private String last_name;

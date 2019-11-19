@@ -1,4 +1,4 @@
-package com.projectlab.bme.ptl.entity;
+package com.projectlab.bme.ptl.domain;
 
 
 

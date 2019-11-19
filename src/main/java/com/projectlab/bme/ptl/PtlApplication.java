@@ -1,6 +1,6 @@
 package com.projectlab.bme.ptl;
 
-import com.projectlab.bme.ptl.repositories.UserRepository;
+import com.projectlab.bme.ptl.repository.UserRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;

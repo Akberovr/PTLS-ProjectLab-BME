@@ -1,4 +1,4 @@
-package com.projectlab.bme.ptl.models;
+package com.projectlab.bme.ptl.model;
 
 public class AuthenticationRequest {
 
