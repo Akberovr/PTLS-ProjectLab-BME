@@ -40,10 +40,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //lines to control authentication and authorization
 
-        http.csrf().disable().authorizeRequests().antMatchers("/authenticated").permitAll()
-        .anyRequest().authenticated()
-        .and().sessionManagement()
-        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//        http.csrf().disable().authorizeRequests().antMatchers("/authenticated").permitAll()
+//        .anyRequest().authenticated()
+//        .and().sessionManagement()
+//        .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);

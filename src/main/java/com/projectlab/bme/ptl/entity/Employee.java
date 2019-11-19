@@ -9,9 +9,8 @@ public class Employee {
 
     //define fields
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+
+    private @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) int id;
 
     private String first_name;
 
