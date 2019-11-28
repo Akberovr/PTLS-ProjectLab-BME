@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/ptl/api")
 public class EmployeeRestController {
@@ -62,7 +64,9 @@ public class EmployeeRestController {
 //
 //    }
 
-    @GetMapping("/employees/all")
+
+
+    @GetMapping
     public Iterable<Employee> findAll(){
         return employeeService.findAll();
     }
