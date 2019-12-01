@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
+
 import javax.validation.Valid;
 
 @RestController
@@ -16,18 +17,18 @@ public class CompanyRestController {
     private CompanyService companyService;
 
     @GetMapping("/companies")
-    public Iterable<Company> findAll(Pageable pageable){
+    public Iterable<Company> findAll(Pageable pageable) {
         return companyService.findAll(pageable);
     }
 
     @PostMapping("/companies")
-    public Company createCompany(@Valid @RequestBody Company theCompany){
+    public Company createCompany(@Valid @RequestBody Company theCompany) {
         return companyService.saveCompany(theCompany);
     }
 
     @PutMapping("/companies/{companyId}")
-    public Company updateCompany(@PathVariable int companyId, @Valid @RequestBody Company theCompany){
-        return companyService.updateCompany(companyId,theCompany);
+    public Company updateCompany(@PathVariable int companyId, @Valid @RequestBody Company theCompany) {
+        return companyService.updateCompany(companyId, theCompany);
     }
 
     @DeleteMapping("/companies/{companyId}")

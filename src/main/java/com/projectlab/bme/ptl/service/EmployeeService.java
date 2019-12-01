@@ -8,24 +8,24 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class EmployeeService  {
+public class EmployeeService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    public Employee saveEmployee(Employee theEmployee){
+    public Employee saveEmployee(Employee theEmployee) {
         return employeeRepository.save(theEmployee);
     }
 
-    public Iterable<Employee> findAll(){
+    public Iterable<Employee> findAll() {
         return employeeRepository.findAll();
     }
 
-    public Optional<Employee> findById(Integer id){
+    public Optional<Employee> findById(Integer id) {
         return employeeRepository.findById(id);
     }
 
-    public void delete(Integer id){
+    public void delete(Integer id) {
         employeeRepository.deleteById(id);
     }
 
