@@ -1,25 +1,25 @@
 package com.projectlab.bme.ptl.domain.company;
 
 
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "company")
-public class Company {
+public class Company implements Serializable {
 
-    private  @Id @GeneratedValue(strategy = GenerationType.IDENTITY) int companyId;
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
-    private  @NotBlank(message = "Field can not be blank") String first_name;
+    private @NotBlank(message = "Field can not be blank") String first_name;
 
 
     private @NotBlank(message = "Field can not be blank") String last_name;
 
 
-    private  @NotBlank(message = "Field can not be blank") String email;
-
-
+    private @NotBlank(message = "Field can not be blank") String email;
 
 
     public Company() {
@@ -31,12 +31,12 @@ public class Company {
         this.email = email;
     }
 
-    public int getCompanyId() {
-        return companyId;
+    public int getId() {
+        return id;
     }
 
-    public void setCompanyId(int companyId) {
-        this.companyId = companyId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirst_name() {
@@ -66,7 +66,7 @@ public class Company {
     @Override
     public String toString() {
         return "Company{" +
-                "companyId=" + companyId +
+                "id=" + id +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +

@@ -17,32 +17,32 @@ public class RouteRestController {
     private RouteService routeService;
 
     @GetMapping("/company/{companyId}/routes")
-    public Page<Route> getAllRoutesByCompanyId(@PathVariable (value = "companyId") Integer companyId,
-                                               Pageable pageable){
-        return routeService.getAllRoutesByCompanyId(companyId,pageable);
+    public Page<Route> getAllRoutesByCompanyId(@PathVariable(value = "companyId") Integer companyId,
+                                               Pageable pageable) {
+        return routeService.getAllRoutesByCompanyId(companyId, pageable);
 
     }
 
     @PostMapping("/company/{companyId}/routes")
-    public Route createRoute(@PathVariable (value = "companyId") Integer companyId,
-                             @Valid @RequestBody Route route){
-        return routeService.saveRoute(companyId,route);
+    public Route createRoute(@PathVariable(value = "companyId") Integer companyId,
+                             @Valid @RequestBody Route route) {
+        return routeService.saveRoute(companyId, route);
     }
 
     @PutMapping("/company/{companyId}/routes/{routeId}")
-    public Route updateRoute(@PathVariable (value = "companyId") Integer companyId
-    ,@PathVariable(value = "routeId") Integer routeId
-    ,@Valid @RequestBody Route theRoute){
+    public Route updateRoute(@PathVariable(value = "companyId") Integer companyId
+            , @PathVariable(value = "routeId") Integer routeId
+            , @Valid @RequestBody Route theRoute) {
 
-        return routeService.updateRoute(companyId,routeId,theRoute);
+        return routeService.updateRoute(companyId, routeId, theRoute);
 
     }
 
     @DeleteMapping("/companies/{companyId}/routes/{routeId}")
-    public ResponseEntity<?> deleteRoute(@PathVariable (value = "companyId") Integer companyId,
-                                         @PathVariable (value = "routeId") Integer routeId){
+    public ResponseEntity<?> deleteRoute(@PathVariable(value = "companyId") Integer companyId,
+                                         @PathVariable(value = "routeId") Integer routeId) {
 
-        routeService.delete(companyId,routeId);
+        routeService.delete(companyId, routeId);
         return ResponseEntity.ok().build();
     }
 

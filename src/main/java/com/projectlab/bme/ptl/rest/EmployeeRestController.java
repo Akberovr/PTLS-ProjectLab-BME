@@ -65,9 +65,8 @@ public class EmployeeRestController {
 //    }
 
 
-
     @GetMapping
-    public Iterable<Employee> findAll(){
+    public Iterable<Employee> findAll() {
         return employeeService.findAll();
     }
 //
@@ -75,12 +74,12 @@ public class EmployeeRestController {
     //add mapping for GET /employees/{employeeId}
 
     @GetMapping("/employees/{employeeId}")
-    public Employee getDriver(@PathVariable int employeeId){
+    public Employee getDriver(@PathVariable int employeeId) {
 
         Optional<Employee> theEmployee = employeeService.findById(employeeId);
 
-        if (!theEmployee.isPresent()){
-            throw new RuntimeException("Employee id not found - "+ employeeId);
+        if (!theEmployee.isPresent()) {
+            throw new RuntimeException("Employee id not found - " + employeeId);
         }
 
         return theEmployee.get();
@@ -89,15 +88,15 @@ public class EmployeeRestController {
 
 
     @PostMapping("/employees")
-    public ResponseEntity<?> addEmployee(@Valid @RequestBody Employee theEmployee, BindingResult result){
+    public ResponseEntity<?> addEmployee(@Valid @RequestBody Employee theEmployee, BindingResult result) {
 
-        if (result.hasErrors()){
-            Map<String,String> errorMap = new HashMap<>();
+        if (result.hasErrors()) {
+            Map<String, String> errorMap = new HashMap<>();
 
-            for (FieldError error : result.getFieldErrors()){
-                errorMap.put(error.getField(),error.getDefaultMessage());
+            for (FieldError error : result.getFieldErrors()) {
+                errorMap.put(error.getField(), error.getDefaultMessage());
             }
-           return new ResponseEntity<Map<String,String>>(errorMap, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
         }
         Employee savedEmployee = employeeService.saveEmployee(theEmployee);
 
@@ -106,7 +105,7 @@ public class EmployeeRestController {
     }
 
     @PutMapping("/employees/{id}")
-    public ResponseEntity<?> updateDriver(@RequestBody Employee theEmployee, @PathVariable int id){
+    public ResponseEntity<?> updateDriver(@RequestBody Employee theEmployee, @PathVariable int id) {
 
         Optional<Employee> employeeOptional = employeeService.findById(id);
 
@@ -122,17 +121,17 @@ public class EmployeeRestController {
 
 
     @DeleteMapping("/employees/{employeeId}")
-    public String deleteDriver(@PathVariable int employeeId){
+    public String deleteDriver(@PathVariable int employeeId) {
 
         Employee tempEmployee = employeeService.findById(employeeId).orElse(null);
 
-        if (tempEmployee == null){
-            throw new RuntimeException("Employee id not found - "+ employeeId);
+        if (tempEmployee == null) {
+            throw new RuntimeException("Employee id not found - " + employeeId);
         }
 
         employeeService.delete(employeeId);
 
-        return "Deleted Employee id- "+ employeeId;
+        return "Deleted Employee id- " + employeeId;
     }
 
 }

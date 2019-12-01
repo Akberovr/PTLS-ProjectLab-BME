@@ -4,10 +4,8 @@ import com.projectlab.bme.ptl.domain.company.Company;
 import com.projectlab.bme.ptl.service.company.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
 import javax.validation.Valid;
 
@@ -25,6 +23,17 @@ public class CompanyRestController {
     @PostMapping("/companies")
     public Company createCompany(@Valid @RequestBody Company theCompany){
         return companyService.saveCompany(theCompany);
+    }
+
+    @PutMapping("/companies/{companyId}")
+    public Company updateCompany(@PathVariable int companyId, @Valid @RequestBody Company theCompany){
+        return companyService.updateCompany(companyId,theCompany);
+    }
+
+    @DeleteMapping("/companies/{companyId}")
+    public ResponseEntity<?> deleteCompany(@PathVariable int companyId) {
+        companyService.delete(companyId);
+        return ResponseEntity.ok().build();
     }
 
 

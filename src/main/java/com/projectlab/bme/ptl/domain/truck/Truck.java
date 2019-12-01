@@ -8,7 +8,9 @@ import javax.validation.constraints.NotBlank;
 @Table(name = "truck")
 public class Truck {
 
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) int truckId;
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int truckId;
 
     private @NotBlank(message = "Field can not be blank") String truck_brand;
 

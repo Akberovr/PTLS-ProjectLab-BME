@@ -5,13 +5,15 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="employee")
+@Table(name = "employee")
 public class Employee {
 
     //define fields
 
 
-    private @Id  @GeneratedValue(strategy = GenerationType.IDENTITY) int id;
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     @NotBlank(message = "Field cannot be blank")
     private String first_name;
@@ -68,7 +70,6 @@ public class Employee {
     public void setEmail(String email) {
         this.email = email;
     }
-
 
 
     //define toString

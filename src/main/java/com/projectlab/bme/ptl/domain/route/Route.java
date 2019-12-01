@@ -1,28 +1,30 @@
 package com.projectlab.bme.ptl.domain.route;
 
 
-
-import org.hibernate.annotations.GeneratorType;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.projectlab.bme.ptl.domain.company.Company;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "route")
-public class Route {
+public class Route implements Serializable {
 
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) int routeId;
+    private @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
 
     private @NotBlank(message = "Field can not be blank") String route_start;
 
     private @NotBlank(message = "Field can not be blank") String route_destination;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "companyId", nullable = false)
+    @JoinColumn(name = "company_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Company company;
@@ -47,12 +49,12 @@ public class Route {
     }
 
 
-    public int getRouteId() {
-        return routeId;
+    public int getId() {
+        return id;
     }
 
-    public void setRouteId(int routeId) {
-        this.routeId = routeId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRoute_start() {
@@ -74,7 +76,7 @@ public class Route {
     @Override
     public String toString() {
         return "Route{" +
-                "routeId=" + routeId +
+                "id=" + id +
                 ", route_start='" + route_start + '\'' +
                 ", route_destination='" + route_destination + '\'' +
                 '}';
