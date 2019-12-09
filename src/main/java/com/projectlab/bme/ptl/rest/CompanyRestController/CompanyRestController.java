@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import javax.validation.Valid;
 
+@CrossOrigin(origins = "*")
 @RestController
 public class CompanyRestController {
 

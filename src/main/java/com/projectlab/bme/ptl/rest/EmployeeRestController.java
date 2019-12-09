@@ -2,13 +2,13 @@ package com.projectlab.bme.ptl.rest;
 
 
 import com.projectlab.bme.ptl.domain.Employee;
-import com.projectlab.bme.ptl.model.AuthenticationRequest;
-import com.projectlab.bme.ptl.model.AuthenticationResponse;
+//import com.projectlab.bme.ptl.model.AuthenticationRequest;
+//import com.projectlab.bme.ptl.model.AuthenticationResponse;
 import com.projectlab.bme.ptl.service.EmployeeService;
 //import com.projectlab.bme.ptl.service.MyUserDetailsService;
 //import com.projectlab.bme.ptl.util.JwtUtil;
-import com.projectlab.bme.ptl.service.MyUserDetailsService;
-import com.projectlab.bme.ptl.util.JwtUtil;
+//import com.projectlab.bme.ptl.service.MyUserDetailsService;
+//import com.projectlab.bme.ptl.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +16,10 @@ import org.springframework.http.ResponseEntity;
 //import org.springframework.security.authentication.BadCredentialsException;
 //import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 //import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
+//import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.BadCredentialsException;
+//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -42,33 +42,33 @@ public class EmployeeRestController {
     @Autowired
     private EmployeeService employeeService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private MyUserDetailsService userDetailsService;
-
-    @Autowired
-    private JwtUtil jwtTokenUtil;
-
-    @PostMapping(value = "/authenticated")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getUsername())
-            );
-        } catch (BadCredentialsException e) {
-            throw new Exception("Incorrect username or password");
-        }
-
-        final UserDetails userDetails = userDetailsService
-                .loadUserByUsername(authenticationRequest.getUsername());
-
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
-
-    }
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
+//
+//    @Autowired
+//    private MyUserDetailsService userDetailsService;
+//
+//    @Autowired
+//    private JwtUtil jwtTokenUtil;
+//
+//    @PostMapping(value = "/authenticated")
+//    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+//        try {
+//            authenticationManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getUsername())
+//            );
+//        } catch (BadCredentialsException e) {
+//            throw new Exception("Incorrect username or password");
+//        }
+//
+//        final UserDetails userDetails = userDetailsService
+//                .loadUserByUsername(authenticationRequest.getUsername());
+//
+//        final String jwt = jwtTokenUtil.generateToken(userDetails);
+//
+//        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+//
+//    }
 
 
     @GetMapping
